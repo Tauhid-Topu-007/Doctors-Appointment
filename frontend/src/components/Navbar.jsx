@@ -1,13 +1,19 @@
-import React, { use, useState } from 'react'
+import React, { use, useContext, useState } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { AppContext } from '../context/AppContext'
 
 const Navbar = () => {
 
+  const {token,setToken}=useContext(AppContext)
+
 const [showMenu,setShowMenu]=useState(false)
-const [token,setToken]=useState(true)
 
-
+const logout=()=>{
+  setToken(false)
+  localStorage.removeItem('token')
+  // navigate('/')
+}
 
 const navigate = useNavigate();
 
@@ -60,7 +66,7 @@ return (
                   My Appointments
                 </p>
                 <p
-                  onClick={() => setToken(false)}
+                  onClick={logout}
                   className="hover:text-black cursor-pointer"
                 >
                   Logout
